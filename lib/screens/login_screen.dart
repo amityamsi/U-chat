@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:u_chat/screens/chat_screen.dart';
@@ -51,15 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       }
                     },
-                    // onChanged: (value) {
-                    //   if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
-                    //     return "Email is invalid";
-                    //   }else{
-                    //     return "";
-                    //
-                    //   }
-                    // },
-
                     decoration: InputDecoration(
                       hintText: "Enter your email",
                       contentPadding: EdgeInsets.symmetric(
@@ -143,8 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (loginKey.currentState!.validate()) {
                             Navigator.pushNamed(context, ChatScreen.id);
                           }
-
-                          //Implement login functionality.
                         },
                         minWidth: 200.0,
                         height: 42.0,
@@ -159,11 +147,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.end,
                     text: TextSpan(children: [
                       TextSpan(
-                          text: "Already have an account? ",
+                          text: "Don't have an account? ",
                           style:
                               TextStyle(color: Colors.black, fontSize: 16.0)),
                       TextSpan(
-                          text: "Signup",
+                          text: "Register",
                           style: TextStyle(
                               color: Colors.blueAccent, fontSize: 20.0),
                           recognizer: TapGestureRecognizer()
