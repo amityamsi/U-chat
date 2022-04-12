@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isObscure = true;
   final loginKey = GlobalKey<FormState>();
   static String id = 'login_screen';
+  final _auth=FirebaseAuth.instance;
+
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +46,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    keyboardType:TextInputType.emailAddress,
+                    onChanged: (value){
+                      email=value;
+
+                    },
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Email is Empty";
@@ -84,7 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     obscureText: _isObscure,
                     keyboardType: TextInputType.visiblePassword,
                     onChanged: (value) {
-                      //Do something with the user input.
+                      password=value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -131,9 +141,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       elevation: 5.0,
                       child: MaterialButton(
                         splashColor: Colors.white,
-                        onPressed: () {
+                        onPressed: () async {
                           if (loginKey.currentState!.validate()) {
-                            return;
+                           final newUser=await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                           Navigator.pushNamed(context, ChatScreen.id);
                           }
 
                           //Implement login functionality.

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:u_chat/screens/welcome_screen.dart';
 import '../constants.dart';
@@ -9,6 +10,28 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
+  @override
+  void initState() {
+
+    super.initState();
+    getCurrentUser();
+  }
+
+  final _auth=FirebaseAuth.instance;
+  late User loggedInUser;
+
+  void getCurrentUser() async {
+    try{
+    final user=await _auth.currentUser;
+    if(user!=null){
+      loggedInUser=user;
+      print(loggedInUser.email);
+    }}catch(e){
+      print(e);
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
+          children: [
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:u_chat/screens/chat_screen.dart';
@@ -16,6 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
   final loginKey = GlobalKey<FormState>();
   static String id = 'login_screen';
+
+  final _auth = FirebaseAuth.instance;
+  late String Email;
+  late String Password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) {
+                      Email = value;
+                    },
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Email is Empty";
@@ -82,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: _isObscure,
                     keyboardType: TextInputType.visiblePassword,
                     onChanged: (value) {
-                      //Do something with the user input.
+                      Password = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -129,9 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       elevation: 5.0,
                       child: MaterialButton(
                         splashColor: Colors.white,
-                        onPressed: () {
+                        onPressed: () async {
                           if (loginKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, ChatScreen.id);
+                            final user = await _auth.signInWithEmailAndPassword(
+                                email: Email, password: Password);
+                            if (user != null) {
+                              Navigator.pushNamed(context, ChatScreen.id);
+                            } else {
+                              print("user not found");
+                            }
                           }
                         },
                         minWidth: 200.0,
