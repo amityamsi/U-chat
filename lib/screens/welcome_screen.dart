@@ -25,7 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
+            Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Hero(
                   tag: 'logo',
@@ -35,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 40.0),
+                  padding: EdgeInsets.only(left: 20.0),
                   child: Text(
                     'UChat',
                     style: TextStyle(

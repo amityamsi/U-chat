@@ -17,11 +17,7 @@ class UChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData.light().copyWith(
-      //   textTheme: TextTheme(
-      //     bodyText1: TextStyle(color: Colors.black),
-      //   ),
-      // ),
+     debugShowCheckedModeBanner: false,
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
